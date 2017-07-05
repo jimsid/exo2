@@ -27,3 +27,18 @@
 
 - name: vérifier que TomEE est actif
   service: state=started name=tomee
+- copy:
+    src: 'tomcat-users.xml'
+    dest: '{{tomee_access_file}}'
+    owner: tomee
+    group: tomee
+
+- copy:
+    src: 'manager.xml'
+    dest: '{{tomee_context_file}}'
+    owner: tomee
+    group: tomee
+
+- service:
+    name: tomee
+state: restarted
